@@ -11,16 +11,16 @@ const API_KEY = process.env.BAIR1_API_KEY || "";
 // Helpers
 // ---------------------------------------------------------------------------
 
-async function apiFetch(path: string, authenticated = false): Promise<unknown> {
+async function apiFetch(path: string): Promise<unknown> {
   const url = `${BASE_URL}${path}`;
   const headers: Record<string, string> = {
     Accept: "application/json",
   };
-  if (authenticated && API_KEY) {
-    headers["Authorization"] = `Bearer ${API_KEY}`;
+  if (API_KEY) {
+    headers["x-api-key"] = API_KEY;
   }
 
-  const res = await fetch(url);
+  const res = await fetch(url, { headers });
   if (!res.ok) {
     const body = await res.text().catch(() => "");
     throw new Error(`Bair1 API error ${res.status} ${res.statusText}: ${body}`);
@@ -176,13 +176,13 @@ server.tool(
   async ({ device_id, from, to, limit }) => {
     const params = new URLSearchParams({
       format: "json",
-      device: device_id,
+      device_id: device_id,
     });
     if (from) params.set("from", from);
     if (to) params.set("to", to);
     if (limit !== undefined) params.set("limit", String(limit));
 
-    const data = await apiFetch(`/api/v1/export?${params.toString()}`, true);
+    const data = await apiFetch(`/api/v1/export?${params.toString()}`);
     return {
       content: [{ type: "text" as const, text: JSON.stringify(data, null, 2) }],
     };
