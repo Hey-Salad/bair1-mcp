@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
-    "bair1-mcp": "./dist/index.js"
+    "bair1-mcp": "dist/index.js"
   },
   "files": [
     "dist",
@@ -14,7 +14,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Hey-Salad/bair1-mcp.git"
+    "url": "git+https://github.com/Hey-Salad/bair1-mcp.git"
   },
   "scripts": {
     "build": "tsc",
