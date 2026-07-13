@@ -19,6 +19,12 @@ npm install
 npm run build
 ```
 
+Published package target:
+
+```bash
+npx @heysalad/bair1-mcp
+```
+
 ## Configuration
 
 Set the `BAIR1_API_KEY` environment variable if you need authenticated endpoints (export). Public read endpoints work without a key.
@@ -31,8 +37,8 @@ Add the following to your Claude Desktop config (`~/Library/Application Support/
 {
   "mcpServers": {
     "bair1": {
-      "command": "node",
-      "args": ["/Users/chilumbam/bair1-mcp/dist/index.js"],
+      "command": "npx",
+      "args": ["-y", "@heysalad/bair1-mcp"],
       "env": {
         "BAIR1_API_KEY": "your-api-key-here"
       }
@@ -46,13 +52,13 @@ Add the following to your Claude Desktop config (`~/Library/Application Support/
 Add the server to your Claude Code MCP config:
 
 ```bash
-claude mcp add bair1 node /Users/chilumbam/bair1-mcp/dist/index.js
+claude mcp add bair1 npx -y @heysalad/bair1-mcp
 ```
 
 Or with an API key:
 
 ```bash
-claude mcp add bair1 -e BAIR1_API_KEY=your-key node /Users/chilumbam/bair1-mcp/dist/index.js
+claude mcp add bair1 -e BAIR1_API_KEY=your-key npx -y @heysalad/bair1-mcp
 ```
 
 ## Development
